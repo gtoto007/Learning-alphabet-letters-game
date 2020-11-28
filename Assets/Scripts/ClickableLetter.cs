@@ -1,37 +1,47 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Random = UnityEngine.Random;
 
-public class ClickableLetter : MonoBehaviour, IPointerClickHandler
-{
-    char _randomLetter;
-    bool _upperCase;
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        Debug.Log($"Clicked on letter {_randomLetter}");
-        if (_randomLetter == GameController.Instance.Letter)
-        {
-            GetComponent<TMP_Text>().color = Color.green;
-            enabled = false;
-            GameController.Instance.HandleCorrectLetterClick(_upperCase);
+public class ClickableLetter : MonoBehaviour {
+    private char _letter;
+    private bool _upperCase;
+
+    private TMP_Text _tmpText;
+
+    public char Letter {
+        get => _letter;
+        set {
+            enabled = true;
+            _tmpText.color = Color.white;
+            _letter = value;
+            if (Random.Range(0, 100) > 50) {
+                _upperCase = false;
+                _tmpText.text = _letter.ToString();
+            }
+            else {
+                _upperCase = true;
+                _tmpText.text = _letter.ToString().ToUpper();
+            }
         }
     }
 
-    public void SetLetter(char letter)
-    {
-        enabled = true;
-        GetComponent<TMP_Text>().color = Color.white;
-        _randomLetter = letter;
+    public Color Color {
+        get => _tmpText.color;
+        set => _tmpText.color = value;
+    }
 
-        if (Random.Range(0, 100) > 50)
-        {
-            _upperCase = false;
-            GetComponent<TMP_Text>().text = _randomLetter.ToString();
-        }
-        else
-        {
-            _upperCase = true;
-            GetComponent<TMP_Text>().text = _randomLetter.ToString().ToUpper();
-        }
+    private void Awake() {
+        _tmpText = GetComponent<TMP_Text>();
+    }
+
+
+    public bool IsUpperCase() {
+        return _upperCase;
+    }
+
+    void Update() {
+        
     }
 }
