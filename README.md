@@ -6,6 +6,6 @@ This project is a revisiting the a [game prototype](https://youtu.be/ZuH2f0knvh8
 # PROJECT GOAL
 The goal was to refactoring of the base code with the introduction of a nifty event-listener pattern via [Unity Atoms](https://adamramberg.github.io/unity-atoms/). You can use this  basecode to extend the project in according to your needs.
 
-#LICENSE 
+# LICENSE 
 This project is release under [MIT license](licence.txt)
 
